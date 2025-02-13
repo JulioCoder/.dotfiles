@@ -204,7 +204,8 @@ require('telescope').setup {
       'cache',
       '%.local/',
       'Movies/',
-      'Music/'
+      'Music/',
+      '.Trash/'
     },
      -- added by me to ignore search of tags in node_modules, it is working.
   },
@@ -295,7 +296,7 @@ lsp_installer.on_server_ready(function(server)
     --   opts = { capabilities = capabilities }
     -- end
 
-    if server.name == 'sumneko_lua' then
+    if server.name == 'lua_ls' then
     opts = {
       settings = {
         Lua = {
@@ -346,11 +347,11 @@ end
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua', 'html', 'eslint', 'cssls'}
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'ts_ls', 'lua_ls', 'html', 'eslint', 'cssls'}
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     on_attach = on_attach,
@@ -382,7 +383,7 @@ end
 -- })
 
 -- ## TSSERVER config to avoid display somme errors in javascript.
-require('lspconfig').tsserver.setup({
+require('lspconfig').ts_ls.setup({
   handlers = {
     ["textDocument/publishDiagnostics"] = function(_, params, client_id, config) -- fixed by antonella coder
     -- List of errors  https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
@@ -487,9 +488,7 @@ cmp.setup({
     end,
   },
   experimental = {ghost_text = true, native_menu = false},
-  documentation = {
-    border = {"╭", "─", "╮", "│", "╯", "─", "╰", "│"}
-  },
+  window = { documentation = cmp.config.window.bordered()},
   mapping = {
     ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-n>'] = cmp.mapping.select_next_item(),
@@ -653,3 +652,4 @@ vim.cmd('nnoremap <leader>o :<C-u>call append(line("."),repeat([""],v:count1))<C
 
 --vim.opt.autoindent = true
 -- vim: ts=2 sts=2 sw=2 et
+

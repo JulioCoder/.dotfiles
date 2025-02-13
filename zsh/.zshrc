@@ -1,4 +1,4 @@
-HOST_NAME=pwd
+HOST_NAME=PWD
 ZSH_DISABLE_COMPFIX="true"
 source ~/.nvm/nvm.sh
 nvm use --lts
@@ -9,15 +9,16 @@ setopt autocd
 setopt appendhistory
 setopt sharehistory
 setopt INC_APPEND_HISTORY
-#setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
 #setopt EXTENDED_HISTORY
+
 
 export PATH=$PATH:$HOME/bin
 export EDITOR=nvim
 
 export HISTSIZE=10000
 export SAVEHIST=10000
-export HISTFILE=~/.bash_history
+export HISTFILE=~/.zsh_history
 export HISTFILESIZE=10000
 
 bindkey '\e[A' history-search-backward
@@ -33,15 +34,14 @@ bldgrn='\e[1;32m' # Bold Green
 bldpur='\e[1;35m' # Bold Purple
 txtrst='\e[0m'    # Text Reset
 
-emojis=("👾" "🌐" "🎲" "🌍" "🐉" "🌵")
-#emojis=("🃏" "⚡" "🌑" "🌗" "♒" "🌕")
+emojis=("👾" "🌐" "🎲" "🌍" "🐉" "🌵" "🃏" "⚡" "🌑" "🌗" "♒" "🌕")
 
-EMOJI=${emojis[$RANDOM % ${#emojis[@]} ]}
-
+EMOJI=${emojis[$RANDOM % ${#emojis[@]}+1]}
+#Line below was after home=$HOME
+#dir=${dir/"$HOME"/"~"}
 precmd () {
     dir=$PWD
     home=$HOME
-    dir=${dir/"$HOME"/"~"}
     printf "\n $txtred%s: $bldpur%s $txtgrn%s\n$txtrst" "$HOST_NAME" "$dir" "$(vcprompt)"
 }
 
@@ -64,7 +64,7 @@ alias python='python3'
 # -------
 # Arch Aliases
 # -------
-#alias ls='ls --color=auto'
+alias ls='ls --color=auto'
 alias ..='cd ..'
 alias ...='cd ../../'
 alias ....='cd ../../../'
@@ -131,3 +131,4 @@ if [ -f '/Users/anto/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/anto/googl
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/anto/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/anto/google-cloud-sdk/completion.zsh.inc'; fi
+
