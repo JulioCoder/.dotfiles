@@ -12,14 +12,14 @@ setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
 #setopt EXTENDED_HISTORY
 
-
 export PATH=$PATH:$HOME/bin
 export EDITOR=nvim
 
-export HISTSIZE=10000
-export SAVEHIST=10000
-export HISTFILE=~/.zsh_history
-export HISTFILESIZE=10000
+#use export in front of each line of this block when not using zsh.
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=~/.zsh_history
+HISTFILESIZE=10000
 
 bindkey '\e[A' history-search-backward
 bindkey '\e[B' history-search-forward
