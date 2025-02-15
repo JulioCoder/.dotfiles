@@ -3,8 +3,8 @@ normal = { family = "JetBrainsMono Nerd Font" }
 size = 18
 
 [colors.primary]
-background = "#282828"
-foreground = "#ebdbb2"
+background = "#000000"
+foreground = "#00ff00"
 
 [colors.cursor]
 text = "#282828"

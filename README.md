@@ -15,3 +15,7 @@ If you remove letter "n" it will do it.
 `git clone https://github.com/AntonellaCoder/.dotfiles.git`
 `cd .dotfiles`
 `stow -nvSt ~ nvim ranger zsh`
+
+### 2025 UPDATE ###
+
+Install vcprompt from https://github.com/djl/vcprompt?tab=readme-ov-file

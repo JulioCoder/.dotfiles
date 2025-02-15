@@ -1,4 +1,5 @@
 HOST_NAME=PWD
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 ZSH_DISABLE_COMPFIX="true"
 source ~/.nvm/nvm.sh
 nvm use --lts
@@ -10,10 +11,12 @@ setopt appendhistory
 setopt sharehistory
 setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
+setopt PROMPT_SUBST
 #setopt EXTENDED_HISTORY
 
 export PATH=$PATH:$HOME/bin
 export EDITOR=nvim
+export TERM=xterm-256color
 
 #use export in front of each line of this block when not using zsh.
 HISTSIZE=10000
@@ -34,11 +37,12 @@ bldgrn='\e[1;32m' # Bold Green
 bldpur='\e[1;35m' # Bold Purple
 txtrst='\e[0m'    # Text Reset
 
-emojis=("👾" "🌐" "🎲" "🌍" "🐉" "🌵" "🃏" "⚡" "🌑" "🌗" "♒" "🌕")
+emojis=("🎲" "🌍" "🌵" "⚡" "🌕")
 
 EMOJI=${emojis[$RANDOM % ${#emojis[@]}+1]}
 #Line below was after home=$HOME
 #dir=${dir/"$HOME"/"~"}
+
 precmd () {
     dir=$PWD
     home=$HOME
@@ -49,6 +53,7 @@ PROMPT_COMMAND=precmd
 PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 PS1="$EMOJI >"
 
+
 #fortune | cowsay -f tux
 #buckle &
 #neofetch
@@ -57,14 +62,10 @@ function mkcd()
 {
 	mkdir $1 && cd $1
 }
-#nvim
 alias v='nvim'
-#python
 alias python='python3'
-# -------
-# Arch Aliases
-# -------
-alias ls='ls --color=auto'
+alias ls='ls --color=auto' # List files in current directory
+alias ll="ls -al -h" # List all files in current directory in long list format
 alias ..='cd ..'
 alias ...='cd ../../'
 alias ....='cd ../../../'
@@ -80,9 +81,6 @@ alias pactree='pactree --color'
 alias vdir='vdir --color=auto'
 alias watch='watch --color'
 alias buckle='buckle -f -p /usr/local/share/bucklespring/wav &'
-# -------
-# Aliases
-# -------
 alias 🍺="git checkout -b drunk"
 alias a='code .'
 alias c='code .'
@@ -92,14 +90,9 @@ alias start='npm start'
 alias nr='npm run'
 alias run='npm run'
 alias nis='npm i -S'
-alias l="ls" # List files in current directory
-alias ll="ls -al -h" # List all files in current directory in long list format
 alias o="open ." # Open the current directory in Finder
 alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
 
-# ----------------------
-# Git Aliases
-# ----------------------
 alias ga='git add'
 alias gaa='git add .'
 alias gaaa='git add -A'
@@ -114,9 +107,16 @@ alias gss='git status -s'
 alias gs='echo ""; echo "*********************************************"; echo -e "   DO NOT FORGET TO PULL BEFORE COMMITTING"; echo "*********************************************"; echo ""; git status'
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# MACBOOK
+#source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+
+# LINUX
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # --------------------- 
