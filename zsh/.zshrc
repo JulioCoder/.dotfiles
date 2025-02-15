@@ -30,6 +30,10 @@ bindkey '\e[B' history-search-forward
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+#with cat
+#export FZF_DEFAULT_OPTS="--preview 'cat {}'"
+#with bat
+export FZF_DEFAULT_OPTS="--preview 'bat --color=always {}'"
 
 txtred='\e[0;31m' # Red
 txtgrn='\e[0;32m' # Green
@@ -107,17 +111,75 @@ alias gss='git status -s'
 alias gs='echo ""; echo "*********************************************"; echo -e "   DO NOT FORGET TO PULL BEFORE COMMITTING"; echo "*********************************************"; echo ""; git status'
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# MACBOOK
-#source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-#source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-#[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+# # MACBOOK
+# #source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# #source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# #[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+#
+# # LINUX
+# source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 
-# LINUX
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Determine the operating system
+if [[ "$(uname)" == "Darwin" ]]; then
+
+  # macOS ##########: Source plugins installed via Homebrew (typically in /opt/homebrew)
+  
+  if [ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  else
+    echo "zsh-autosuggestions not found at /opt/homebrew/share/zsh-autosuggestions/"
+  fi
+
+  if [ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  else
+    echo "zsh-syntax-highlighting not found at /opt/homebrew/share/zsh-syntax-highlighting/"
+  fi
+  # On Apple Silicon (M1/M2)      /opt/homebrew/etc/profile.d/autojump.sh.
+  # On Intel Macs the path may be  /usr/local/etc/profile.d/autojump.sh
+  # Run the command: brew info autojump
+  if [ -f /opt/homebrew/etc/profile.d/autojump.sh ]; then
+    source /opt/homebrew/etc/profile.d/autojump.sh
+  else
+    echo "autojump not found at /opt/homebrew/etc/profile.d/"
+  fi
+
+elif [[ "$(uname)" == "Linux" ]]; then
+
+  # LINUX ##########: Try common installation paths for the plugins
+
+  # zsh-autosuggestions
+  if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  elif [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+  else
+    echo "zsh-autosuggestions not found on Linux"
+  fi
+
+  # zsh-syntax-highlighting
+  if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  elif [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  else
+    echo "zsh-syntax-highlighting not found on Linux"
+  fi
+
+  # autojump (location may vary)
+
+  if [ -f /usr/share/autojump/autojump.sh ]; then
+    source /usr/share/autojump/autojump.sh
+  elif [ -f /usr/local/etc/profile.d/autojump.sh ]; then
+    source /usr/local/etc/profile.d/autojump.sh
+  else
+    echo "autojump not found on Linux"
+  fi
+
+fi
 
 # --------------------- 
 # Replace "/Users/anto" by "/Users/yourUserName" in the following lines.
