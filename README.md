@@ -12,10 +12,15 @@ If you remove letter "n" it will do it.
 `stow -nvDt ~ nvim ranger zsh`
 ### On a new machine (remove "n" flag when ready)
 `cd ~`
-`git clone https://github.com/AntonellaCoder/.dotfiles.git`
 `cd .dotfiles`
+`git clone https://github.com/AntonellaCoder/.dotfiles.git`
 `stow -nvSt ~ nvim ranger zsh`
 
-### 2025 UPDATE ###
-
+## 2025 UPDATE ###
+Install ZSH 5.9 or higher, make it, build it.
+Also install nvim 0.10 or higher, make it, build it.
+`git clone git@github.com:JulioCoder/.dotfiles.git`
 Install vcprompt from https://github.com/djl/vcprompt?tab=readme-ov-file
+Install lastest version of nvim 0.10 (unastable but working)
+Install all dependencies
+

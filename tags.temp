@@ -1,0 +1,23 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+["<S-Tab>"] 	nvim/.config/nvim/init.lua	/^    ["<S-Tab>"] = cmp.mapping(function(fallback)$/;"	f
+["<Tab>"] 	nvim/.config/nvim/init.lua	/^    ["<Tab>"] = cmp.mapping(function(fallback)$/;"	f
+["textDocument/publishDiagnostics"] 	nvim/.config/nvim/init.lua	/^    ["textDocument\/publishDiagnostics"] = function(_, params, client_id, config) -- fixed by antonella coder$/;"	f
+['[M'] 	nvim/.config/nvim/init.lua	/^        ['[M'] = '@function.outer',$/;"	f
+['[m'] 	nvim/.config/nvim/init.lua	/^        ['[m'] = '@function.outer',$/;"	f
+[']M'] 	nvim/.config/nvim/init.lua	/^        [']M'] = '@function.outer',$/;"	f
+[']m'] 	nvim/.config/nvim/init.lua	/^        [']m'] = '@function.outer',$/;"	f
+['af'] 	nvim/.config/nvim/init.lua	/^        ['af'] = '@function.outer',$/;"	f
+['if'] 	nvim/.config/nvim/init.lua	/^        ['if'] = '@function.inner',$/;"	f
+callback 	nvim/.config/nvim/init.lua	/^  callback = function()$/;"	f
+config 	nvim/.config/nvim/init.lua	/^    config = function() require'nvim-tree'.setup {} end$/;"	f
+config 	nvim/.config/nvim/init.lua	/^    config = function()$/;"	f
+expand 	nvim/.config/nvim/init.lua	/^    expand = function(args)$/;"	f
+format 	nvim/.config/nvim/init.lua	/^		format = function(entry, vim_item)$/;"	f
+get_bufnrs 	nvim/.config/nvim/init.lua	/^        get_bufnrs = function()$/;"	f
+local has_words_before 	nvim/.config/nvim/init.lua	/^local has_words_before = function()$/;"	f
+local on_attach 	nvim/.config/nvim/init.lua	/^local on_attach = function(_, bufnr)$/;"	f

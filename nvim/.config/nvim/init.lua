@@ -1,16 +1,37 @@
---- Install packer
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+-- luacheck: globals vim
+
+-- Install packer
+--local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+
+--if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+--  vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+--end
+--vim.cmd [[
+--  augroup Packer
+--    autocmd!
+--    autocmd BufWritePost init.lua PackerCompile
+--  augroup end
+--]]
+
+local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+  vim.fn.system({
+    'git', 'clone', '--depth', '1',
+    'https://github.com/wbthomason/packer.nvim',
+    install_path
+  })
+  vim.cmd [[packadd packer.nvim]]
 end
 
-vim.cmd [[
-  augroup Packer
-    autocmd!
-    autocmd BufWritePost init.lua PackerCompile
-  augroup end
-]]
+vim.api.nvim_create_augroup('Packer', { clear = true })
+vim.api.nvim_create_autocmd('BufWritePost', {
+  group = 'Packer',
+  pattern = 'init.lua',
+  callback = function()
+    vim.cmd 'PackerCompile'
+  end,
+})
 
 -- ## Examples for configuration
 -- vim.g.mapleader <global var is equivalent to> let g:mapleader
@@ -78,6 +99,15 @@ require('packer').startup(function()
   use 'kamykn/spelunker.vim' -- to check spell.
   use 'winston0410/cmd-parser.nvim' --range-highlight.
   use 'winston0410/range-highlight.nvim' --range-highlight.
+  use { -- copy from nvim to clipboard.
+    'ojroques/vim-oscyank',
+    config = function()
+      -- Change this based on your terminal emulator:
+      vim.g.oscyank_term = 'iterm'
+      -- Optionally, enable auto-copying:
+      vim.g.oscyank_auto = 1
+    end
+  }
 end)
 
 --Set languages.
@@ -216,7 +246,7 @@ require('telescope').load_extension 'fzf'
 
 --Add leader shortcuts
 vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], _o)
-vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false, hidden = true})<CR>]], _o)
+vim.api.nvim_set_keymap('n','<leader>sf',[[<cmd>lua require('telescope.builtin').find_files({previewer = false, hidden = true})<CR>]], _o)
 vim.api.nvim_set_keymap('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], _o)
 vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], _o)
 vim.api.nvim_set_keymap('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], _o)
@@ -301,10 +331,10 @@ lsp_installer.on_server_ready(function(server)
       settings = {
         Lua = {
           diagnostics = {
-            globals = {'vim'}
+            globals = { 'vim' },
           },
-        }
-      }
+        },
+      },
     }
     end
 
@@ -632,7 +662,7 @@ vim.cmd('inoremap . .<c-g>u')
 vim.cmd('inoremap ! !<c-g>u')
 vim.cmd('inoremap ? ?<c-g>u')
 
--- ## Moving text in visual mode.
+-- ## Moving text in visual mode. Press J or K.
 vim.cmd("vnoremap J :m '>+1<CR>gv=gv")
 vim.cmd("vnoremap K :m '<-2<CR>gv=gv")
 
@@ -652,4 +682,9 @@ vim.cmd('nnoremap <leader>o :<C-u>call append(line("."),repeat([""],v:count1))<C
 
 --vim.opt.autoindent = true
 -- vim: ts=2 sts=2 sw=2 et
+
+-- Mapping for vim-oscyank plugin
+vim.api.nvim_set_keymap('v', '<leader>y', '<Plug>OSCYankVisual', { noremap = false, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>y', '<Plug>OSCYank', { noremap = false, silent = true })
+
 

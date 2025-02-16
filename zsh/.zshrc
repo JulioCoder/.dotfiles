@@ -24,16 +24,39 @@ SAVEHIST=10000
 HISTFILE=~/.zsh_history
 HISTFILESIZE=10000
 
-bindkey '\e[A' history-search-backward
-bindkey '\e[B' history-search-forward
+# bindkey "\e[A" history-beginning-search-backward
+# bindkey "\e[B" history-beginning-search-forward
+
+# MACBOOK
+# bindkey "\e[A" history-beginning-search-backward
+# bindkey "\e[B" history-beginning-search-forward
+
+
+# Bind Option+Left/Right to move backward/forward by word
+bindkey "^[[1;3D" backward-word
+bindkey "^[[1;3C" forward-word
+
+# Bind Command+Left/Right to move to beginning/end of line
+bindkey "^[[1;9D" beginning-of-line
+bindkey "^[[1;9C" end-of-line
+
 
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-#with cat
-#export FZF_DEFAULT_OPTS="--preview 'cat {}'"
-#with bat
-export FZF_DEFAULT_OPTS="--preview 'bat --color=always {}'"
+
+# FD FDFIND
+if command -v fd >/dev/null 2>&1; then
+  export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+elif command -v fdfind >/dev/null 2>&1; then
+  export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow --exclude .git'
+fi
+
+# BAT BATCAT
+if command -v bat >/dev/null 2>&1; then
+  export FZF_DEFAULT_OPTS="--preview 'bat --color=always {}'"
+elif command -v batcat >/dev/null 2>&1; then
+  export FZF_DEFAULT_OPTS="--preview 'batcat --color=always {}'"
+fi
 
 txtred='\e[0;31m' # Red
 txtgrn='\e[0;32m' # Green
@@ -51,10 +74,11 @@ precmd () {
     dir=$PWD
     home=$HOME
     printf "\n $txtred%s: $bldpur%s $txtgrn%s\n$txtrst" "$HOST_NAME" "$dir" "$(vcprompt)"
+    fc -AI
 }
 
 PROMPT_COMMAND=precmd
-PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+# PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 PS1="$EMOJI >"
 
 
@@ -149,8 +173,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
 
 elif [[ "$(uname)" == "Linux" ]]; then
 
-  # LINUX ##########: Try common installation paths for the plugins
-
   # zsh-autosuggestions
   if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -194,3 +216,9 @@ if [ -f '/Users/anto/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/anto/googl
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/anto/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/anto/google-cloud-sdk/completion.zsh.inc'; fi
 
+#LINUX
+export PATH="$PATH:/home/ubuntu/lua-language-server/bin"
+
+# LINUX
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
