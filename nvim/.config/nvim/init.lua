@@ -638,7 +638,7 @@ require'range-highlight'.setup{}
 --require('nvim-tree').setup{} -- line not working, it is changing icon's colors
 vim.cmd('nnoremap <leader>n :NvimTreeToggle<CR>')
 vim.cmd('nnoremap <leader>r :NvimTreeRefresh<CR>')
--- vim.cmd('nnoremap <leader>f :NvimTreeFindFile<CR>') --conflict  with keybinding.
+--vim.cmd('nnoremap <leader>f :NvimTreeFindFile<CR>') --conflict  with keybinding <space>f.
 
 -- undotree
 vim.cmd('nnoremap <leader>u :UndotreeToggle<CR>')

@@ -1,4 +1,4 @@
-HOST_NAME=PWD
+# HOST_NAME=PWD
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 ZSH_DISABLE_COMPFIX="true"
 source ~/.nvm/nvm.sh
@@ -15,6 +15,7 @@ setopt PROMPT_SUBST
 #setopt EXTENDED_HISTORY
 
 export PATH=$PATH:$HOME/bin
+export PATH=$HOME/.local/bin:$PATH
 export EDITOR=nvim
 export TERM=xterm-256color
 
@@ -23,14 +24,6 @@ HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
 HISTFILESIZE=10000
-
-# bindkey "\e[A" history-beginning-search-backward
-# bindkey "\e[B" history-beginning-search-forward
-
-# MACBOOK
-# bindkey "\e[A" history-beginning-search-backward
-# bindkey "\e[B" history-beginning-search-forward
-
 
 # Bind Option+Left/Right to move backward/forward by word
 bindkey "^[[1;3D" backward-word
@@ -70,16 +63,20 @@ EMOJI=${emojis[$RANDOM % ${#emojis[@]}+1]}
 #Line below was after home=$HOME
 #dir=${dir/"$HOME"/"~"}
 
+HOST_NAME=$EMOJI
+
 precmd () {
     dir=$PWD
     home=$HOME
-    printf "\n $txtred%s: $bldpur%s $txtgrn%s\n$txtrst" "$HOST_NAME" "$dir" "$(vcprompt)"
+    printf "\n $txtred%s $bldpur%s $txtgrn%s\n$txtrst" "$HOST_NAME" "$dir" "$(vcprompt)"
     fc -AI
 }
 
+
 PROMPT_COMMAND=precmd
 # PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-PS1="$EMOJI >"
+# PS1="$EMOJI >"
+PS1=">"
 
 
 #fortune | cowsay -f tux
